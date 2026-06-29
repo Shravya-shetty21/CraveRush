@@ -14,6 +14,9 @@ import java.util.Optional;
 @Service
 @Transactional
 public class AdminService {
+    public AdminService() {
+        System.out.println(">>> AdminService initialized");
+    }
 
     @Autowired
     private AdminRepository adminRepository;
