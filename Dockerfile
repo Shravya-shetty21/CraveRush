@@ -7,8 +7,7 @@ COPY src ./src
 RUN mvn clean package -DskipTests
 
 # Run stage
-FROM eclipse-temurin:17-jre
-WORKDIR /app
-COPY --from=build /app/target/craverush-1.0.0.war ./app.war
+FROM tomcat:10.1-jdk17
+RUN rm -rf /usr/local/tomcat/webapps/ROOT
+COPY --from=build /app/target/craverush-1.0.0.war /usr/local/tomcat/webapps/ROOT.war
 EXPOSE 8080
-ENTRYPOINT ["java", "-jar", "app.war"]
