@@ -223,7 +223,7 @@ public class DatabaseInitializer implements CommandLineRunner {
 
             // 8. CTR - Shri Sagar
             RestaurantProfile ctr = new RestaurantProfile("CTR - Shri Sagar", "South Indian, Breakfast", 
-                "/images/ctr_main.png", 4.7, 160, true, "Chef Santhosh");
+                "https://images.unsplash.com/photo-1668236543090-82eba5ee5976?auto=format&fit=crop&w=600&q=80", 4.7, 160, true, "Chef Santhosh");
             ctr.branches = new String[]{"Malleshwaram"};
             ctr.foods.add(new FoodTemplate("CTR Benne Masala Dosa", "Legendary butter-crisped golden dosa served with potato saagu and coconut chutney.", 120, "https://images.unsplash.com/photo-1583226462-81788c0350d2?auto=format&fit=crop&w=400&q=80", true, true, southIndian));
             ctr.foods.add(new FoodTemplate("CTR Poori Sagu", "Three puffed wheat pooris served with flavorful spiced potato mash.", 95, "https://images.unsplash.com/photo-1605381144070-6ec9697d268d?auto=format&fit=crop&w=400&q=80", true, false, breakfast));
