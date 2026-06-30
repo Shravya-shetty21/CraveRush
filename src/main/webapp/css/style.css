@@ -1102,3 +1102,75 @@ button { font-family: var(--font); }
     0% { background-position: 200% 0; }
     100% { background-position: -200% 0; }
 }
+
+/* =============================================================
+   PASSWORD TOGGLE & STRENGTH CHECKLIST
+   ============================================================= */
+.password-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+.password-container .form-input {
+    width: 100%;
+    padding-right: 46px !important;
+}
+.password-toggle {
+    position: absolute;
+    right: 12px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1.1rem;
+    color: var(--text-muted);
+    outline: none;
+    padding: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: var(--transition);
+    user-select: none;
+}
+.password-toggle:hover {
+    color: var(--primary);
+}
+
+.password-strength-container {
+    background: #FFF9F0;
+    border: 1px solid rgba(252, 128, 25, 0.15);
+    border-radius: var(--radius-sm);
+    padding: 12px;
+    margin-top: 8px;
+    font-size: 0.78rem;
+    box-shadow: var(--shadow-xs);
+}
+.password-strength-title {
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 6px;
+}
+.req-list {
+    list-style: none;
+    padding-left: 0;
+    margin: 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6px 12px;
+}
+.req-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-weight: 500;
+    transition: var(--transition);
+}
+.req-item.req-invalid {
+    color: var(--red);
+}
+.req-item.req-valid {
+    color: var(--green);
+}
+.req-icon {
+    font-size: 0.85rem;
+}

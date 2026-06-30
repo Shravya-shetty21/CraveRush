@@ -75,6 +75,19 @@ public class UserController {
                            @RequestParam String password,
                            Model model,
                            RedirectAttributes redirectAttributes) {
+        // Enforce password requirements: min 6 chars, 1 letter, 1 number, 1 special character
+        boolean hasLetter = password.matches(".*[a-zA-Z].*");
+        boolean hasNumber = password.matches(".*[0-9].*");
+        boolean hasSpecial = password.matches(".*[!@#$%^&*(),.?\":{}|<>_].*");
+
+        if (password.length() < 6 || !hasLetter || !hasNumber || !hasSpecial) {
+            model.addAttribute("error", "Password must be at least 6 characters and contain at least one letter, one number, and one special character.");
+            model.addAttribute("fullName", fullName);
+            model.addAttribute("email", email);
+            model.addAttribute("phone", phone);
+            return "user/register";
+        }
+
         User user = new User();
         user.setFullName(fullName);
         user.setEmail(email);
@@ -86,6 +99,9 @@ public class UserController {
             return "redirect:/login";
         } else {
             model.addAttribute("error", "Email is already registered.");
+            model.addAttribute("fullName", fullName);
+            model.addAttribute("email", email);
+            model.addAttribute("phone", phone);
             return "user/register";
         }
     }

@@ -16,7 +16,7 @@
                         <div class="restaurant-card-img" style="height: 220px;">
                             <c:choose>
                                 <c:when test="${not empty restaurant.imageUrl}">
-                                    <img src="${restaurant.imageUrl}" alt="<c:out value="${restaurant.name}"/>" style="width: 100%; height: 100%; object-fit: cover;" loading="lazy" onerror="this.onerror=null; this.src='${pageContext.request.contextPath}/images/default-restaurant.png';">
+                                    <img src="${restaurant.imageUrl.startsWith('http') ? '' : pageContext.request.contextPath}${restaurant.imageUrl}" alt="<c:out value="${restaurant.name}"/>" style="width: 100%; height: 100%; object-fit: cover;" loading="lazy" onerror="this.onerror=null; this.src='${pageContext.request.contextPath}/images/default-restaurant.png';">
                                 </c:when>
                                 <c:otherwise>
                                     <div class="restaurant-card-img-placeholder">🍽️</div>

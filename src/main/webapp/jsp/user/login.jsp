@@ -24,8 +24,11 @@
                     </div>
                     <div class="form-group">
                         <label for="password" class="form-label">Password</label>
-                        <input type="password" id="password" name="password" class="form-input"
-                               placeholder="Enter your password" required>
+                        <div class="password-container">
+                            <input type="password" id="password" name="password" class="form-input"
+                                   placeholder="Enter your password" required>
+                            <button type="button" class="password-toggle" onclick="togglePasswordVisibility('password', this)" id="togglePass" aria-label="Toggle password visibility">👁️</button>
+                        </div>
                     </div>
                     <button type="submit" class="btn btn-primary btn-block" id="loginBtn">Login</button>
                 </form>
@@ -38,4 +41,16 @@
         </div>
     </section>
 
+    <script>
+        function togglePasswordVisibility(inputId, btn) {
+            const input = document.getElementById(inputId);
+            if (input.type === 'password') {
+                input.type = 'text';
+                btn.textContent = '🙈';
+            } else {
+                input.type = 'password';
+                btn.textContent = '👁️';
+            }
+        }
+    </script>
 <jsp:include page="/jsp/common/footer.jsp"/>
