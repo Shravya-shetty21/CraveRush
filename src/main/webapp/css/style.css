@@ -1136,6 +1136,12 @@ button { font-family: var(--font); }
     color: var(--primary);
 }
 
+/* Hide Edge/IE default password reveal icon to prevent duplication */
+.password-container input::-ms-reveal,
+.password-container input::-ms-clear {
+    display: none;
+}
+
 .password-strength-container {
     background: #FFF9F0;
     border: 1px solid rgba(252, 128, 25, 0.15);
