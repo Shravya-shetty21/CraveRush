@@ -59,7 +59,15 @@ public class DatabaseInitializer implements CommandLineRunner {
             }
         }
         if (needsReseed) {
-            entityManager.createNativeQuery("SET FOREIGN_KEY_CHECKS = 0").executeUpdate();
+            try {
+                entityManager.createNativeQuery("SET REFERENTIAL_INTEGRITY FALSE").executeUpdate();
+            } catch (Exception e) {
+                try {
+                    entityManager.createNativeQuery("SET FOREIGN_KEY_CHECKS = 0").executeUpdate();
+                } catch (Exception ex) {
+                    System.err.println("Could not disable foreign key checks: " + ex.getMessage());
+                }
+            }
             entityManager.createNativeQuery("TRUNCATE TABLE chatbot_logs").executeUpdate();
             entityManager.createNativeQuery("TRUNCATE TABLE delivery_assignments").executeUpdate();
             entityManager.createNativeQuery("TRUNCATE TABLE delivery_tracking").executeUpdate();
@@ -75,7 +83,15 @@ public class DatabaseInitializer implements CommandLineRunner {
             entityManager.createNativeQuery("TRUNCATE TABLE categories").executeUpdate();
             entityManager.createNativeQuery("TRUNCATE TABLE users").executeUpdate();
             entityManager.createNativeQuery("TRUNCATE TABLE admins").executeUpdate();
-            entityManager.createNativeQuery("SET FOREIGN_KEY_CHECKS = 1").executeUpdate();
+            try {
+                entityManager.createNativeQuery("SET REFERENTIAL_INTEGRITY TRUE").executeUpdate();
+            } catch (Exception e) {
+                try {
+                    entityManager.createNativeQuery("SET FOREIGN_KEY_CHECKS = 1").executeUpdate();
+                } catch (Exception ex) {
+                    System.err.println("Could not enable foreign key checks: " + ex.getMessage());
+                }
+            }
             entityManager.clear();
         }
 
