@@ -1143,13 +1143,22 @@ button { font-family: var(--font); }
 }
 
 .password-strength-container {
-    background: #FFF9F0;
-    border: 1px solid rgba(252, 128, 25, 0.15);
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
     border-radius: var(--radius-sm);
     padding: 12px;
     margin-top: 8px;
     font-size: 0.78rem;
-    box-shadow: var(--shadow-xs);
+    box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+    display: none;
+    opacity: 0;
+    transform: translateY(-5px);
+    transition: all 0.3s ease;
+}
+.password-strength-container.show {
+    display: block;
+    opacity: 1;
+    transform: translateY(0);
 }
 .password-strength-title {
     font-weight: 700;
@@ -1171,6 +1180,9 @@ button { font-family: var(--font); }
     font-weight: 500;
     transition: var(--transition);
 }
+.req-item.req-pending {
+    color: var(--text-tertiary);
+}
 .req-item.req-invalid {
     color: var(--red);
 }
@@ -1178,5 +1190,9 @@ button { font-family: var(--font); }
     color: var(--green);
 }
 .req-icon {
-    font-size: 0.85rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 14px;
+    height: 14px;
 }

@@ -39,14 +39,8 @@
                                    placeholder="Create a password" required>
                             <button type="button" class="password-toggle" onclick="togglePasswordVisibility('password', this)" id="togglePass" aria-label="Toggle password visibility">👁️</button>
                         </div>
-                        <div class="password-strength-container" id="strengthContainer">
-                            <div class="password-strength-title">Password must contain:</div>
-                            <ul class="req-list">
-                                <li id="req-length" class="req-item req-invalid"><span class="req-icon" id="icon-length">❌</span> Min 6 characters</li>
-                                <li id="req-letter" class="req-item req-invalid"><span class="req-icon" id="icon-letter">❌</span> One letter (a-z)</li>
-                                <li id="req-number" class="req-item req-invalid"><span class="req-icon" id="icon-number">❌</span> One number (0-9)</li>
-                                <li id="req-special" class="req-item req-invalid"><span class="req-icon" id="icon-special">❌</span> One special char (!@#$...)</li>
-                            </ul>
+                        <div class="password-error" id="passwordError" style="display: none; color: var(--red); font-size: 0.82rem; margin-top: 6px; font-weight: 500;">
+                            Must be 6+ chars containing a letter, number, and special character.
                         </div>
                     </div>
                     <div class="form-group">
@@ -92,26 +86,42 @@
                 special: { el: document.getElementById("req-special"), icon: document.getElementById("icon-special"), test: val => /[!@#$%^&*(),.?":{}|<>_]/.test(val) }
             };
 
+            const passwordError = document.getElementById("passwordError");
+
             function validatePassword() {
                 const val = passwordInput.value;
-                let allValid = true;
+                if (val.length === 0) {
+                    passwordError.style.display = "none";
+                    passwordInput.style.borderColor = "";
+                    return false;
+                }
 
+                let allValid = true;
                 for (const key in reqs) {
-                    const req = reqs[key];
-                    const isValid = req.test(val);
-                    if (isValid) {
-                        req.el.className = "req-item req-valid";
-                        req.icon.textContent = "✓";
-                    } else {
-                        req.el.className = "req-item req-invalid";
-                        req.icon.textContent = "❌";
+                    if (!reqs[key].test(val)) {
                         allValid = false;
+                        break;
                     }
                 }
+
+                if (allValid) {
+                    passwordError.style.display = "none";
+                    passwordInput.style.borderColor = "var(--green)";
+                } else {
+                    passwordError.style.display = "block";
+                    passwordInput.style.borderColor = "var(--red)";
+                }
+
                 return allValid;
             }
 
             passwordInput.addEventListener("input", validatePassword);
+            passwordInput.addEventListener("blur", () => {
+                if (passwordInput.value.length === 0) {
+                    passwordError.style.display = "none";
+                    passwordInput.style.borderColor = "";
+                }
+            });
 
             form.addEventListener("submit", function(e) {
                 const isPassValid = validatePassword();
