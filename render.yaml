@@ -3,9 +3,7 @@ services:
     name: craverush-app
     env: docker
     plan: free
+    region: singapore
     dockerfilePath: ./Dockerfile
     dockerContext: .
     healthCheckPath: /
-    envVars:
-      - key: PORT
-        value: 8080
